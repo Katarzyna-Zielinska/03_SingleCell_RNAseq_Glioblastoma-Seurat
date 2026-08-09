@@ -1,441 +1,421 @@
-Single-Cell RNA-seq Analysis of Glioblastoma (GBM)
+# Single-Cell RNA-seq Analysis of Glioblastoma
 
-A complete single-cell RNA-seq (scRNA-seq) analysis workflow for glioblastoma (GBM), including raw sequencing data quality control, alignment and quantification with STARsolo, single-cell analysis and annotation using Seurat, and copy-number variation (CNV) analysis using inferCNV.
+---
 
-The project was designed as an end-to-end bioinformatics workflow, starting from raw FASTQ files and ending with an annotated single-cell dataset and quantitative CNV analysis.
+# Project Overview
 
-Project Overview
+This project presents a complete **single-cell RNA-seq analysis workflow of glioblastoma (GBM)** performed using **R, Seurat, STARsolo, and inferCNV**.
 
-This project presents a complete single-cell RNA-seq analysis pipeline performed on glioblastoma samples.
+The aim of the project was to characterize the cellular composition of glioblastoma samples, identify transcriptionally distinct cell populations, annotate major cell types, compare their representation across samples, and prepare the dataset for copy-number variation (CNV) analysis.
 
-The workflow combines command-line bioinformatics tools with R/Bioconductor and Seurat for downstream single-cell analysis.
+The workflow combines raw sequencing data processing with downstream single-cell transcriptomic analysis.
 
-The main objectives were to:
+The project includes:
 
-perform quality control of raw sequencing data,
-process single-cell RNA-seq reads,
-generate gene-by-cell expression matrices,
-perform single-cell quality control,
-filter low-quality cells,
-normalize the expression data,
-perform dimensionality reduction,
-identify cell clusters,
-identify marker genes,
-annotate major cell populations,
-investigate sample and cell-type composition,
-prepare genomic annotation for CNV analysis,
-select reference cell populations,
-perform CNV inference using inferCNV,
-validate the resulting CNV data and observation cells.
-Analysis Pipeline
-                  Raw FASTQ files
-                         │
-                         ▼
-                      FastQC
-                         │
-                         ▼
-                     MultiQC
-                         │
-                         ▼
-              Reference preparation
-                         │
-                         ▼
-                      STARsolo
-                         │
-                         ▼
-             Gene × Cell count matrix
-                         │
-                         ▼
-                  Seurat object
-                         │
-                         ▼
-                Single-cell QC
-                         │
-                         ▼
-                  Cell filtering
-                         │
-                         ▼
-                  Normalization
-                         │
-                         ▼
-                       PCA
-                         │
-                         ▼
+- raw FASTQ quality control
+- RNA-seq preprocessing
+- alignment and gene quantification using STARsolo
+- Seurat-based quality control
+- cell filtering
+- normalization
+- dimensionality reduction
+- PCA
+- UMAP
+- clustering
+- marker gene identification
+- marker validation
+- cell-type annotation
+- sample composition analysis
+- CNV input preparation
+- reference population selection
+- reference matrix validation
+- inferCNV analysis
+- validation of cells included in the inferCNV analysis
+
+---
+
+# Biological Question
+
+**What cellular populations are present in glioblastoma samples, how do their proportions differ between samples, and can transcriptional data be used to investigate large-scale copy-number variation patterns?**
+
+---
+
+# Dataset
+
+The project uses publicly available single-cell RNA-seq data from three glioblastoma samples.
+
+| Information | Value |
+| ----------- | ----- |
+| Organism | *Homo sapiens* |
+| Data type | Single-cell RNA-seq |
+| Samples | SRR10353960, SRR10353961, SRR10353962 |
+| Number of cells | 13,632 |
+| Reference annotation | GENCODE v47 |
+| Main analysis framework | Seurat |
+| CNV analysis | inferCNV |
+
+The three samples contain:
+
+- SRR10353960 — 4,791 cells
+- SRR10353961 — 4,652 cells
+- SRR10353962 — 4,189 cells
+
+---
+
+# Analysis Pipeline
+
+```text
+                 Raw FASTQ files
+                       │
+                       ▼
+                  FastQC
+                       │
+                       ▼
+                    STARsolo
+                       │
+                       ▼
+              Gene-count matrix
+                       │
+                       ▼
+                 Seurat object
+                       │
+                       ▼
+              Quality Control
+                       │
+                       ▼
+                Cell filtering
+                       │
+                       ▼
+                Normalization
+                       │
+                       ▼
+                     PCA
+                       │
+                       ▼
+                    UMAP
+                       │
+                       ▼
                   Clustering
-                         │
-                         ▼
-                       UMAP
-                         │
-                         ▼
-                  Marker analysis
-                         │
-                         ▼
-              Cell-type annotation
-                         │
-                         ▼
-             Sample composition
-                         │
-                         ▼
-              ┌─────────────────────┐
-              │      CNV analysis   │
-              └─────────────────────┘
-                         │
-                         ▼
-              GENCODE gene annotation
-                         │
-                         ▼
-                CNV input preparation
-                         │
-                         ▼
-              Reference population
-                     validation
-                         │
-                         ▼
-              Balanced reference set
-                         │
-                         ▼
-                     inferCNV
-                         │
-                         ▼
-              CNV result inspection
-                         │
-                         ▼
-              Observation validation
-Biological Question
-
-What cellular populations are present in glioblastoma samples, how are they distributed across samples, and what large-scale copy-number variation patterns can be detected at the single-cell level?
-
-Dataset
-Information	Value
-Organism	Homo sapiens
-Disease	Glioblastoma (GBM)
-Data type	Single-cell RNA-seq
-Samples	3
-Sample IDs	SRR10353960, SRR10353961, SRR10353962
-Total cells	13,632
-Reference genome	GRCh38
-Gene annotation	GENCODE v47
-Ensembl release	113
-
-The dataset consists of three glioblastoma single-cell RNA-seq samples.
+                       │
+                       ▼
+              Marker identification
+                       │
+                       ▼
+             Marker validation
+                       │
+                       ▼
+             Cell-type annotation
+                       │
+                       ▼
+           Sample composition analysis
+                       │
+                       ▼
+              CNV input preparation
+                       │
+                       ▼
+          Reference population selection
+                       │
+                       ▼
+           Reference matrix validation
+                       │
+                       ▼
+                  inferCNV
+                       │
+                       ▼
+          inferCNV result validation
 
 Bioinformatics Workflow
-1. Raw Data Quality Control
+1. Raw Data and Quality Control
 
-Raw sequencing data were evaluated using:
+The workflow starts with raw single-cell RNA-seq FASTQ files.
 
-FastQC
-MultiQC
+Initial quality assessment is performed using FastQC, followed by a summary of quality metrics using MultiQC.
 
-The quality-control stage was used to assess sequencing quality before downstream processing.
+The quality-control stage evaluates sequencing quality and provides an overview of the input data before downstream processing.
 
-2. Reference Preparation
+2. Alignment and Quantification
 
-The workflow includes preparation of:
+Reads are processed using STARsolo.
 
-reference genome,
-GENCODE gene annotation,
-STAR genome index,
-single-cell barcode whitelist.
-3. Single-cell Alignment and Quantification
+STARsolo performs:
 
-Single-cell reads were processed using STARsolo.
+read alignment
+barcode processing
+UMI processing
+gene-level quantification
 
-STARsolo was used to:
-
-identify cell barcodes,
-process UMI information,
-align reads to the reference genome,
-generate gene-level count matrices.
-
-The resulting expression data were used as input for downstream Seurat analysis.
+The output is a gene-by-cell count matrix suitable for downstream analysis with Seurat.
 
 Seurat Analysis
+3. Quality Control
 
-The downstream single-cell analysis was performed using Seurat.
+The generated count matrix is imported into Seurat.
+
+Cell-level quality metrics are calculated, including:
+
+number of detected genes
+total RNA counts
+mitochondrial RNA percentage
+
+Quality-control plots are generated to evaluate the distribution of these metrics and identify low-quality cells.
+
+4. Cell Filtering
+
+Cells with low-quality transcriptomic profiles are removed based on the predefined quality-control criteria.
+
+The resulting filtered dataset is used for downstream normalization and dimensionality reduction.
+
+5. Normalization
+
+Gene expression data are normalized using the Seurat workflow.
+
+Highly variable genes are identified and used for downstream dimensionality reduction.
+
+6. Principal Component Analysis
+
+Principal Component Analysis (PCA) is performed to reduce the dimensionality of the expression matrix.
+
+PCA provides a representation of the major sources of variation in the dataset and forms the basis for subsequent clustering and UMAP visualization.
+
+7. UMAP and Clustering
+
+The PCA representation is used to construct a neighborhood graph and identify transcriptionally distinct cell populations.
+
+UMAP is then used to visualize the cellular landscape in two dimensions.
+
+The resulting clusters represent groups of cells with similar transcriptional profiles.
+
+Figures
+
+The main analysis figures are stored in the figures/ directory.
 
 Quality Control
+QC Before Filtering
 
-Quality-control metrics were evaluated for individual cells before filtering.
+QC After Filtering
 
-The workflow included:
+Gene Counts and Cell Complexity
 
-number of detected genes,
-number of RNA counts,
-mitochondrial RNA percentage,
-identification of low-quality cells.
-Cell Filtering
+Dimensionality Reduction
+PCA
 
-Low-quality cells were removed according to the established QC criteria.
+Elbow Plot
 
-The resulting filtered dataset contained:
+UMAP
 
-13,632 cells
+UMAP by Sample
 
-Normalization
-
-Gene expression data were normalized using the Seurat workflow.
-
-The normalized expression matrix was subsequently used for dimensionality reduction and clustering.
-
-Principal Component Analysis
-
-Principal Component Analysis (PCA) was performed to reduce the dimensionality of the expression data and identify the major sources of transcriptional variation.
-
-Clustering and UMAP
-
-Cells were clustered according to their transcriptional profiles.
-
-UMAP was used to visualize the resulting cellular structure in a low-dimensional space.
+UMAP Split by Sample
 
 Marker Gene Analysis
 
-Differentially expressed marker genes were identified for individual clusters.
+Differential marker analysis is performed to identify genes characteristic of individual clusters.
 
-Marker analysis was used to characterize the transcriptional profiles of the identified cell populations.
+Marker genes are used to investigate the biological identity of the transcriptionally defined populations.
+
+Marker validation is subsequently performed using canonical marker genes and cell-type-specific expression patterns.
+
+Marker Visualization
+Cluster Marker Heatmap
+
+Cell-Type Marker DotPlot
+
+Marker Scores
 
 Cell-Type Annotation
 
-Cell populations were annotated using marker-based analysis.
+Cell populations are annotated using marker-gene expression and predefined cell-type scores.
 
-The final annotated dataset contained the following cell populations:
+The analysis identified populations corresponding to several major cellular compartments of the glioblastoma microenvironment.
 
-Astrocyte-like
-Cycling-G2M
-Cycling-Mixed
-Cycling-S-phase
-Endothelial
-Highly-Cycling
-Hypoxic-Mesenchymal-like
-Mast-cell
-Mesenchymal-like
-Microglia-Macrophage
+The final annotation includes:
+
 Neural-like
 Neural-like-mixed
+Astrocyte-like
 Oligodendrocyte
 OPC-like
 OPC-Neural-like
-Vascular-Mesenchymal-like
-
-The annotation therefore captures multiple major cellular compartments of the glioblastoma microenvironment, including neural, glial, vascular, immune, mesenchymal and cycling populations.
-
-Sample Composition
-
-The three samples contained:
-
-Sample	Cells
-SRR10353960	4,791
-SRR10353961	4,652
-SRR10353962	4,189
-Total	13,632
-
-Cell-type composition was examined across samples to evaluate differences in cellular representation.
-
-CNV Analysis
-
-A separate CNV analysis workflow was developed to investigate large-scale copy-number variation from single-cell RNA-seq expression data.
-
-Because CNV inference depends strongly on genomic gene ordering and reference populations, the workflow includes several validation steps before inferCNV analysis.
-
-GENCODE Gene Annotation
-
-The Seurat gene identifiers were matched against:
-
-GENCODE v47 — GRCh38
-
-A total of:
-
-38,606
-
-genes were present in the Seurat object.
-
-After matching against GENCODE:
-
-37,344 genes
-
-were successfully annotated.
-
-The final matching rate was:
-
-96.73%
-
-The annotated genes included protein-coding genes, lncRNAs and additional gene types.
-
-CNV Input Preparation
-
-The CNV workflow generated:
-
-normalized expression matrix,
-raw count matrix,
-genomic gene-order information,
-cell metadata,
-reference-cell metadata.
-
-The final CNV input contained:
-
-37,344 genes × 13,632 cells
-
-The genes were ordered according to their genomic coordinates.
-
-The gene-order validation confirmed correct ordering within chromosomes.
-
-CNV Reference Populations
-
-Potential non-malignant reference populations were evaluated before CNV inference.
-
-The candidate populations included:
-
-Astrocyte-like
-Oligodendrocyte
 Microglia-Macrophage
 Endothelial
 Mast-cell
+Mesenchymal-like
+Hypoxic-Mesenchymal-like
+Vascular-Mesenchymal-like
+Cycling-S-phase
+Cycling-G2M
+Cycling-Mixed
+Highly-Cycling
 
-For the final balanced reference set, two populations were selected:
+The cell-type annotation is visualized on the UMAP embedding.
+
+Cell-Type Annotation
+
+Sample Composition
+
+The cellular composition of the three samples is compared to determine how different populations are represented across the dataset.
+
+The analysis includes both absolute cell counts and relative cell proportions.
+
+Cell Composition
+
+Cell Composition by Percentage
+
+Cell Composition Heatmap
+
+The analysis demonstrates substantial differences in the representation of specific cell populations between the three samples.
+
+CNV Analysis
+
+A separate CNV analysis workflow was developed to investigate large-scale transcriptional patterns associated with copy-number variation.
+
+Because normal reference cells are required for inferCNV analysis, candidate non-malignant populations were evaluated before CNV inference.
+
+CNV Reference Selection
+
+Candidate reference populations were evaluated based on their expected non-malignant identity.
+
+The selected reference populations were:
 
 Microglia-Macrophage
 Oligodendrocyte
 
-A total of 300 reference cells were selected:
+A balanced reference set of 300 cells was selected:
 
 Sample	Reference cells
 SRR10353960	100
 SRR10353961	100
 SRR10353962	100
 
-This ensured balanced reference representation across all three samples.
+The selected reference population consisted of:
+
+236 Microglia-Macrophage cells
+64 Oligodendrocyte cells
+
+The reference matrix was subsequently validated for:
+
+cell identifier consistency
+cell order
+gene identifier consistency
+gene order
+count validity
+sample balance
+reference population composition
+
+All validation steps passed.
 
 inferCNV Analysis
 
 CNV inference was performed using inferCNV 1.18.1.
 
-The final inferCNV analysis included:
+The analysis used:
 
 13,632 cells
-
-including:
-
+37,344 input genes
+GENCODE v47 gene annotation
 300 reference cells
 13,332 observation cells
-
-The analysis was performed using genomic gene ordering based on GENCODE v47.
+three independent samples
 
 The inferCNV workflow included:
 
-genomic gene ordering,
-reference population definition,
-sequencing-depth normalization,
-expression transformation,
-genomic smoothing,
-CNV signal estimation,
-observation-cell analysis,
-CNV result inspection.
-CNV Validation
+gene-order preparation
+cell annotation
+reference-cell assignment
+count matrix preparation
+normalization
+smoothing
+CNV signal estimation
+quantitative inspection of the resulting CNV profiles
 
-The resulting inferCNV object was quantitatively inspected and validated.
+The analysis was performed in analysis_mode = "samples" with denoising enabled.
 
-The final inspected inferCNV object contained:
+inferCNV Validation
 
-6,528 genes × 600 cells
+The final inferCNV object contained:
 
-with:
-
+600 cells in the inspected result object
 300 reference cells
 300 observation cells
+6,528 genes
 
-The validation confirmed representation of all three samples in the analyzed observation population.
+The observation cells represented all three samples.
 
-The full observation-cell validation additionally confirmed that cells from all annotated populations were represented in the inferCNV analysis, although the proportions differed between cell types.
+The validation confirmed:
 
-Results
-UMAP
+correct cell identifier alignment
+correct cell order
+successful matching to the original metadata
+representation of all three samples
+representation of multiple annotated cell types
+successful separation of reference and observation cells
 
-UMAP visualization demonstrates the transcriptional organization of the glioblastoma single-cell dataset and the separation of major cellular populations.
+The observation cells represented approximately 2% of the original cells from each sample in the inspected inferCNV result.
 
-Cell-Type Annotation
+The current CNV analysis is treated as an exploratory CNV signal analysis.
 
-The annotated UMAP highlights the cellular heterogeneity of the glioblastoma samples and identifies neural, glial, immune, vascular, mesenchymal and proliferative populations.
-
-Sample Composition
-
-The distribution of cell populations across the three samples demonstrates substantial differences in cellular composition between individual GBM samples.
-
-CNV Heatmap
-
-inferCNV analysis was used to visualize genomic CNV patterns across reference and observation cells.
-
-The analysis provides a genome-wide view of relative CNV signal across ordered genomic regions.
-
-Important Interpretation Note
-
-The inferCNV analysis in this project was used to estimate and inspect CNV patterns in the single-cell dataset.
-
-The project does not automatically classify individual cells as malignant or non-malignant based solely on the inferCNV output.
-
-CNV patterns from scRNA-seq should be interpreted together with:
-
-cell-type annotation,
-marker gene expression,
-sample context,
-reference population quality,
-genomic structure of the inferred signal.
-
-Therefore, the current results should be considered a CNV inference and validation workflow, rather than a definitive malignant-cell classification.
+Importantly, the current workflow does not classify cells as malignant or non-malignant solely on the basis of inferCNV signal.
 
 Main Findings
 
-The analysis demonstrates substantial cellular heterogeneity within the GBM dataset.
+The single-cell analysis identified a heterogeneous cellular landscape characteristic of glioblastoma.
 
-The final annotation identified multiple cellular populations, including:
+The dataset contains multiple transcriptionally distinct populations representing:
 
-Neural-like cells
-Mesenchymal-like cells
-Hypoxic-Mesenchymal-like cells
-OPC-like cells
-Microglia-Macrophage cells
-Astrocyte-like cells
-Oligodendrocytes
-Endothelial cells
-Mast cells
-Cycling populations
+neural and glial populations
+oligodendrocyte-lineage populations
+immune populations
+endothelial populations
+mesenchymal populations
+cycling populations
 
-The three samples also showed markedly different cell-type compositions.
+The relative abundance of these populations differs between the three analyzed samples.
 
-The CNV workflow successfully integrated:
+The Seurat analysis provides a transcriptional characterization of the GBM cellular environment, while the inferCNV workflow establishes a framework for investigating large-scale CNV-associated expression patterns.
 
-GENCODE v47 genomic annotation,
-raw single-cell counts,
-balanced reference populations,
-sample-aware cell metadata,
-inferCNV-based CNV estimation.
 Technologies
 R
-RStudio
-Seurat 5.5.1
-SeuratObject 5.4.0
-inferCNV 1.18.1
-Bioconductor
-STAR
+Seurat
+SeuratObject
 STARsolo
 FastQC
 MultiQC
+inferCNV
+Matrix
+ggplot2
+pheatmap
+dplyr
+Bioconductor
 GENCODE
-GRCh38
-Linux
-WSL2
-Bash
-Git & GitHub
-Tools Used
-Tool	Purpose
-FastQC	Sequencing quality control
-MultiQC	Aggregated QC reporting
-STARsolo	Single-cell alignment and quantification
-Seurat	Single-cell RNA-seq analysis
-GENCODE	Gene annotation and genomic coordinates
-inferCNV	Single-cell CNV inference
-R	Statistical analysis and visualization
-Bash	Workflow execution and data processing
-Linux / WSL2	Computational environment
+Skills Demonstrated
+
+This project demonstrates practical experience with:
+
+Single-cell RNA-seq analysis
+FASTQ quality control
+STARsolo
+UMI-based gene quantification
+Seurat
+Single-cell quality control
+Data filtering
+Normalization
+Highly variable gene analysis
+PCA
+UMAP
+Graph-based clustering
+Differential marker analysis
+Marker validation
+Cell-type annotation
+Sample composition analysis
+CNV analysis
+inferCNV
+Reference population selection
+CNV input validation
+Reproducible bioinformatics workflows
+Linux / WSL
+R scripting
+Git & GitHub project organization
+
 Repository Structure
 03_SingleCell-RNAseq-Glioblastoma-Seurat/
 │
@@ -448,6 +428,26 @@ Repository Structure
 ├── docs/
 │
 ├── figures/
+│   ├── QC_before_filtering.png
+│   ├── QC_after_filtering.png
+│   ├── QC_nCount_vs_nFeature.png
+│   ├── QC_nCount_vs_percent_mt.png
+│   ├── PCA_ElbowPlot.png
+│   ├── PCA_PC1_PC2_by_sample.png
+│   ├── PCA_PC2_PC3_by_sample.png
+│   ├── UMAP_clusters.png
+│   ├── UMAP_by_sample.png
+│   ├── UMAP_clusters_split_by_sample.png
+│   ├── cluster_marker_heatmap.png
+│   ├── CanonicalMarkers_DotPlot.png
+│   ├── MarkerScores_by_cluster_heatmap.png
+│   ├── UMAP_cell_type_annotation.png
+│   ├── Cell_Composition_Counts.png
+│   ├── Cell_Composition_Percent.png
+│   ├── Cell_Composition_Heatmap.png
+│   └── inferCNV_denoised.png
+│
+├── logs/
 │
 ├── results/
 │   ├── fastqc/
@@ -464,6 +464,7 @@ Repository Structure
 │   ├── sample_composition/
 │   ├── cnv_annotation/
 │   ├── cnv_input/
+│   ├── cnv_reference/
 │   └── infercnv/
 │
 ├── scripts/
@@ -495,79 +496,32 @@ Repository Structure
 │   └── 26_validate_infercnv_observations.R
 │
 ├── .gitignore
-├── LICENSE
+├── 03_SingleCell-RNAseq-Glioblastoma-Seurat.Rproj
 └── README.md
+
 Reproducibility
 
-The project is organized as a sequential workflow consisting of numbered scripts.
+The complete workflow is divided into independent scripts representing individual analysis stages.
 
-The scripts can be executed in order:
+Each stage generates output files that can be used by subsequent steps.
 
-01 → 02 → 03 → ... → 26
+The project was developed and tested under Ubuntu/WSL2.
 
-The numbered structure makes it possible to follow the complete analysis from raw sequencing data through single-cell annotation and CNV inference.
+The workflow is designed to make the analysis reproducible and to allow individual stages to be inspected independently.
 
-Skills Demonstrated
-
-This project demonstrates practical experience with:
-
-Single-cell RNA-seq analysis
-Raw sequencing data QC
-FASTQ processing
-STARsolo
-Gene-by-cell count matrices
-Seurat
-Single-cell quality control
-Data normalization
-PCA
-UMAP
-Clustering
-Marker gene analysis
-Cell-type annotation
-Sample composition analysis
-Genomic annotation
-GENCODE
-GRCh38
-CNV input preparation
-Reference population selection
-inferCNV
-CNV validation
-R programming
-Bash scripting
-Linux / WSL2
-Reproducible bioinformatics workflows
-Git & GitHub project organization
 Future Improvements
 
 Possible extensions of this project include:
 
-More detailed malignant-cell identification using integrated CNV and expression evidence
-Subclonal CNV analysis
-Cell-level CNV scoring
-Comparison of CNV patterns between annotated cellular populations
-Integration of CNV profiles with GBM molecular subtypes
-Additional validation using external genomic datasets
-Automated workflow implementation using Snakemake or Nextflow
-Containerization using Docker
-Interactive visualization of single-cell CNV profiles
-Project Status
-
-Completed
-
-The project currently includes:
-
-raw-data QC,
-STARsolo processing,
-Seurat-based single-cell analysis,
-cell-type annotation,
-sample composition analysis,
-CNV preparation and validation,
-inferCNV analysis,
-inferCNV result inspection,
-observation-cell validation.
-
-The final analysis stage is script 26.
-
+deeper CNV interpretation
+chromosome-level CNV visualization
+comparison of CNV patterns between cellular populations
+integration with additional GBM datasets
+validation of CNV-associated populations using independent evidence
+integration of CNV results with marker-gene expression
+subclonal analysis
+automated reporting
+conversion of the workflow into a Snakemake or Nextflow pipeline
 Author
 
 Katarzyna Zielińska
