@@ -673,3 +673,9 @@ Possible extensions of this project include:
 # Author
 
 **Katarzyna Zielińska**
+
+Bioinformatics Portfolio
+
+2026
+
+Created as part of a Bioinformatics Portfolio project focused on RNA-seq data analysis using R and Linux.
