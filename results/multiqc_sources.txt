@@ -1,7 +1,0 @@
-Module	Section	Sample Name	Source
-FastQC	all_sections	SRR10353960_1	/mnt/e/Cancer-Bioinformatics-Portfolio/03_SingleCell-RNAseq-Glioblastoma-Seurat/results/fastqc/SRR10353960_1_fastqc.zip
-FastQC	all_sections	SRR10353960_2	/mnt/e/Cancer-Bioinformatics-Portfolio/03_SingleCell-RNAseq-Glioblastoma-Seurat/results/fastqc/SRR10353960_2_fastqc.zip
-FastQC	all_sections	SRR10353961_1	/mnt/e/Cancer-Bioinformatics-Portfolio/03_SingleCell-RNAseq-Glioblastoma-Seurat/results/fastqc/SRR10353961_1_fastqc.zip
-FastQC	all_sections	SRR10353961_2	/mnt/e/Cancer-Bioinformatics-Portfolio/03_SingleCell-RNAseq-Glioblastoma-Seurat/results/fastqc/SRR10353961_2_fastqc.zip
-FastQC	all_sections	SRR10353962_1	/mnt/e/Cancer-Bioinformatics-Portfolio/03_SingleCell-RNAseq-Glioblastoma-Seurat/results/fastqc/SRR10353962_1_fastqc.zip
-FastQC	all_sections	SRR10353962_2	/mnt/e/Cancer-Bioinformatics-Portfolio/03_SingleCell-RNAseq-Glioblastoma-Seurat/results/fastqc/SRR10353962_2_fastqc.zip
