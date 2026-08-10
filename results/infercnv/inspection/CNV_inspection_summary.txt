@@ -1,0 +1,56 @@
+============================================================
+INFERCNV RESULT INSPECTION SUMMARY
+============================================================
+
+infercnv version: 1.18.1
+
+Input:
+/home/katja/Cancer-Bioinformatics-Portfolio/03_SingleCell-RNAseq-Glioblastoma-Seurat/results/infercnv/GBM_3samples_infercnv_final.rds 
+
+Expression matrix:
+Genes: 6528 
+Cells: 600 
+
+Expression range:
+Minimum: 0.6551208 
+Maximum: 1.562532 
+Mean: 1.003297 
+Median: 1.001243 
+
+Reference groups:
+                            group cells
+normal_reference normal_reference   300
+
+Observation groups:
+                  group cells
+observation observation   300
+
+Reference vs observation:
+        group cells mean_signal  sd_signal
+1   reference   300    1.003913 0.03800804
+2 observation   300    1.002681 0.06320125
+
+Chromosome summary:
+   chromosome genes
+1        chr1   672
+2        chr2   474
+3        chr3   387
+4        chr4   236
+5        chr5   318
+6        chr6   341
+7        chr7   380
+8        chr8   252
+9        chr9   239
+10      chr10   195
+11      chr11   398
+12      chr12   368
+13      chr13   124
+14      chr14   242
+15      chr15   182
+16      chr16   294
+17      chr17   428
+18      chr18    91
+19      chr19   502
+20      chr20   188
+21      chr21    72
+22      chr22   145
