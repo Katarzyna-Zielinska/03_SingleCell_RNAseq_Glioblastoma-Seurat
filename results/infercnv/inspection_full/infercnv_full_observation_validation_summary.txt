@@ -1,0 +1,147 @@
+FULL OBSERVATION VALIDATION FOR inferCNV
+========================================
+
+infercnv version:  1.18.1 
+
+Input object:
+/home/katja/Cancer-Bioinformatics-Portfolio/03_SingleCell-RNAseq-Glioblastoma-Seurat/results/infercnv/GBM_3samples_infercnv_full_final.rds 
+
+Total cells: 13632 
+Reference cells: 300 
+Observation cells: 13332 
+
+Genes in expression matrix: 7312 
+Genes in count matrix: 7312 
+
+Observation cells by sample:
+    sample_id observation_cells
+1 SRR10353960              4691
+2 SRR10353961              4552
+3 SRR10353962              4089
+
+Observation cells by cell type:
+                   cell_type observation_cells
+11               Neural-like              2444
+7   Hypoxic-Mesenchymal-like              1991
+9           Mesenchymal-like              1681
+4            Cycling-S-phase              1036
+12         Neural-like-mixed              1009
+14                  OPC-like              1000
+16 Vascular-Mesenchymal-like               999
+15           OPC-Neural-like               720
+2                Cycling-G2M               570
+3              Cycling-Mixed               528
+1             Astrocyte-like               522
+10      Microglia-Macrophage               396
+6             Highly-Cycling               190
+5                Endothelial               109
+8                  Mast-cell               102
+13           Oligodendrocyte                35
+
+Sample x cell type:
+     sample_id                 cell_type cells
+1  SRR10353960            Astrocyte-like     7
+2  SRR10353961            Astrocyte-like    91
+3  SRR10353962            Astrocyte-like   424
+4  SRR10353960               Cycling-G2M     3
+5  SRR10353961               Cycling-G2M   564
+6  SRR10353962               Cycling-G2M     3
+8  SRR10353961             Cycling-Mixed     1
+9  SRR10353962             Cycling-Mixed   527
+10 SRR10353960           Cycling-S-phase  1036
+14 SRR10353961               Endothelial     2
+15 SRR10353962               Endothelial   107
+16 SRR10353960            Highly-Cycling   190
+19 SRR10353960  Hypoxic-Mesenchymal-like     8
+20 SRR10353961  Hypoxic-Mesenchymal-like  1983
+22 SRR10353960                 Mast-cell     4
+23 SRR10353961                 Mast-cell    85
+24 SRR10353962                 Mast-cell    13
+25 SRR10353960          Mesenchymal-like     3
+26 SRR10353961          Mesenchymal-like    39
+27 SRR10353962          Mesenchymal-like  1639
+28 SRR10353960      Microglia-Macrophage     5
+29 SRR10353961      Microglia-Macrophage    34
+30 SRR10353962      Microglia-Macrophage   357
+31 SRR10353960               Neural-like  2436
+32 SRR10353961               Neural-like     7
+33 SRR10353962               Neural-like     1
+35 SRR10353961         Neural-like-mixed     2
+36 SRR10353962         Neural-like-mixed  1007
+37 SRR10353960           Oligodendrocyte     1
+38 SRR10353961           Oligodendrocyte    27
+39 SRR10353962           Oligodendrocyte     7
+40 SRR10353960                  OPC-like   998
+41 SRR10353961                  OPC-like     2
+44 SRR10353961           OPC-Neural-like   716
+45 SRR10353962           OPC-Neural-like     4
+47 SRR10353961 Vascular-Mesenchymal-like   999
+
+Global observation CNV signal:
+          metric     value
+1        minimum 0.9828398
+2 first_quartile 1.0004029
+3         median 1.0031950
+4           mean 1.0032980
+5 third_quartile 1.0060834
+6        maximum 1.1870937
+
+CNV signal by sample:
+    sample_id cells mean_signal   sd_signal median_signal min_signal max_signal
+1 SRR10353960  4691    1.004344 0.004611257      1.004195  0.9866575   1.029759
+2 SRR10353961  4552    1.002234 0.004369933      1.002205  0.9828398   1.020093
+3 SRR10353962  4089    1.003284 0.004751319      1.003216  0.9892616   1.187094
+
+CNV signal by cell type:
+                   cell_type cells mean_signal   sd_signal median_signal
+11               Neural-like  2444    1.004548 0.004733609      1.004380
+7   Hypoxic-Mesenchymal-like  1991    1.001691 0.004531546      1.001542
+9           Mesenchymal-like  1681    1.002859 0.004002052      1.002752
+4            Cycling-S-phase  1036    1.004385 0.004489996      1.004291
+12         Neural-like-mixed  1009    1.003277 0.006897018      1.003013
+14                  OPC-like  1000    1.004218 0.004288043      1.004011
+16 Vascular-Mesenchymal-like   999    1.003128 0.003787540      1.003082
+15           OPC-Neural-like   720    1.002132 0.004704948      1.002303
+2                Cycling-G2M   570    1.002664 0.004375304      1.002748
+3              Cycling-Mixed   528    1.004072 0.003555687      1.003858
+1             Astrocyte-like   522    1.002726 0.004055812      1.002519
+10      Microglia-Macrophage   396    1.004366 0.002410299      1.004219
+6             Highly-Cycling   190    1.002052 0.004783864      1.001963
+5                Endothelial   109    1.004452 0.003253943      1.004631
+8                  Mast-cell   102    1.001827 0.002700662      1.001706
+13           Oligodendrocyte    35    1.002033 0.003429543      1.002394
+   min_signal max_signal
+11  0.9888326   1.029759
+7   0.9851847   1.020093
+9   0.9892616   1.037688
+4   0.9866575   1.018651
+12  0.9914838   1.187094
+14  0.9905796   1.018244
+16  0.9828398   1.017906
+15  0.9851023   1.016138
+2   0.9885265   1.016875
+3   0.9939944   1.017985
+1   0.9919872   1.015403
+10  0.9969328   1.011587
+6   0.9899726   1.018145
+5   0.9965341   1.012357
+8   0.9954728   1.011224
+13  0.9940313   1.009498
+
+1st percentile of per-cell mean signal: 0.9931152 
+99th percentile of per-cell mean signal: 1.014046 
+
+Cells in lowest 1%: 134 
+Cells in highest 1%: 134 
+
+Numeric validation: PASSED
+Cell alignment: PASSED
+Metadata alignment: PASSED
+Reference/observation assignment: PASSED
+
+IMPORTANT:
+This script validates the observation population and
+quantifies CNV signal. It does NOT classify cells as
+malignant or non-malignant.
+
+END OF SCRIPT 26

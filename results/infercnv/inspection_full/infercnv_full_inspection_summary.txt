@@ -1,0 +1,110 @@
+FULL INFERCNV RESULT INSPECTION
+================================
+
+infercnv version: 1.18.1
+
+Input object:
+/home/katja/Cancer-Bioinformatics-Portfolio/03_SingleCell-RNAseq-Glioblastoma-Seurat/results/infercnv/GBM_3samples_infercnv_full_final.rds 
+
+Expression matrix:
+Genes: 7312 
+Cells: 13632 
+
+Reference cells: 300 
+Observation cells: 13332 
+
+Cells by sample:
+    sample_id cells
+1 SRR10353960  4791
+2 SRR10353961  4652
+3 SRR10353962  4189
+
+Sample x inferCNV group:
+    sample_id infercnv_group cells
+1 SRR10353960    observation  4691
+2 SRR10353961    observation  4552
+3 SRR10353962    observation  4089
+4 SRR10353960      reference   100
+5 SRR10353961      reference   100
+6 SRR10353962      reference   100
+
+Cell types:
+                   cell_type cells
+11               Neural-like  2444
+7   Hypoxic-Mesenchymal-like  1991
+9           Mesenchymal-like  1681
+4            Cycling-S-phase  1036
+12         Neural-like-mixed  1009
+14                  OPC-like  1000
+16 Vascular-Mesenchymal-like   999
+15           OPC-Neural-like   720
+10      Microglia-Macrophage   632
+2                Cycling-G2M   570
+3              Cycling-Mixed   528
+1             Astrocyte-like   522
+6             Highly-Cycling   190
+5                Endothelial   109
+8                  Mast-cell   102
+13           Oligodendrocyte    99
+
+Overall per-cell mean CNV signal:
+          metric     value
+1        minimum 0.9828398
+2 first_quartile 1.0004346
+3         median 1.0032290
+4           mean 1.0033174
+5 third_quartile 1.0060918
+6        maximum 1.1870937
+
+CNV signal by inferCNV group:
+        group cells mean_signal   sd_signal median_signal min_signal max_signal
+1 observation 13332    1.003298 0.004657717      1.003195  0.6079444   2.637723
+2   reference   300    1.004177 0.002954916      1.004318  0.6797241   1.494263
+
+CNV signal by sample:
+    sample_id cells mean_signal   sd_signal median_signal min_signal max_signal
+1 SRR10353960  4791    1.004351 0.004580388      1.001334  0.6079444   1.788223
+2 SRR10353961  4652    1.002258 0.004352669      1.001334  0.6115334   1.572879
+3 SRR10353962  4189    1.003311 0.004714664      1.001334  0.6314744   2.637723
+
+CNV signal by cell type:
+                   cell_type cells mean_signal   sd_signal median_signal
+11               Neural-like  2444    1.004548 0.004733609      1.001334
+7   Hypoxic-Mesenchymal-like  1991    1.001691 0.004531546      1.001334
+9           Mesenchymal-like  1681    1.002859 0.004002052      1.001334
+4            Cycling-S-phase  1036    1.004385 0.004489996      1.001334
+12         Neural-like-mixed  1009    1.003277 0.006897018      1.001334
+14                  OPC-like  1000    1.004218 0.004288043      1.001334
+16 Vascular-Mesenchymal-like   999    1.003128 0.003787540      1.001334
+15           OPC-Neural-like   720    1.002132 0.004704948      1.001334
+10      Microglia-Macrophage   632    1.004463 0.002476673      1.001334
+2                Cycling-G2M   570    1.002664 0.004375304      1.001334
+3              Cycling-Mixed   528    1.004072 0.003555687      1.001334
+1             Astrocyte-like   522    1.002726 0.004055812      1.001334
+6             Highly-Cycling   190    1.002052 0.004783864      1.001334
+5                Endothelial   109    1.004452 0.003253943      1.001334
+8                  Mast-cell   102    1.001827 0.002700662      1.001334
+13           Oligodendrocyte    99    1.002352 0.003540626      1.001334
+   min_signal max_signal
+11  0.6079444   1.748261
+7   0.6115334   1.602475
+9   0.6314744   1.519770
+4   0.6130478   1.601977
+12  0.6676482   2.637723
+14  0.6445782   1.634391
+16  0.6260018   1.485398
+15  0.6358713   1.570927
+10  0.6945985   1.494263
+2   0.6506182   1.788223
+3   0.6797324   1.455447
+1   0.6371346   1.547387
+6   0.6416151   1.658926
+5   0.7125335   1.399860
+8   0.7046764   1.365972
+13  0.6609955   1.384211
+
+IMPORTANT:
+These results are descriptive quantitative summaries of the
+FULL inferCNV output. They do NOT classify cells as malignant.
+No malignant-cell threshold is applied in this script.
+The next step is validation of the full observation population.
