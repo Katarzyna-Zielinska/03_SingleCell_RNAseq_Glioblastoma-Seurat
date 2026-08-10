@@ -1,0 +1,17 @@
+"cluster","predicted_marker_class","score"
+"0","score_Macrophage",0.15989168810242
+"1","score_Mesenchymal",0.459222331264157
+"2","score_Mesenchymal",0.756643425400739
+"3","score_Cycling",0.358330085659022
+"4","score_Mesenchymal",0.153402652499928
+"5","score_OPC",0.455374103746595
+"6","score_Mesenchymal",0.716877979311317
+"7","score_OPC",0.361388269671784
+"8","score_Microglia",1.92524756114295
+"9","score_Cycling",0.588524321564821
+"10","score_Cycling",0.51362805822768
+"11","score_Astrocyte",0.744616024779626
+"12","score_Cycling",1.08953416099028
+"13","score_Endothelial",1.61524133958385
+"14","score_Mast_cell",2.37674752310567
+"15","score_Oligodendrocyte",1.1696628268595
