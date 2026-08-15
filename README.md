@@ -4,7 +4,7 @@
 
 # Project Overview
 
-This project presents a complete **single-cell RNA-seq analysis workflow of glioblastoma (GBM)** performed using **R, Seurat, STARsolo, and inferCNV**.
+This project presents a complete **single-cell RNA-seq analysis workflow of glioblastoma (GBM)** performed using **R, Seurat, STARsolo, and inferCNV**.
 
 The aim of the project was to characterize the cellular composition of glioblastoma samples, identify transcriptionally distinct cell populations, annotate major cell types, compare their representation across samples, and investigate large-scale copy-number variation (CNV) patterns using inferCNV.
 
@@ -42,9 +42,9 @@ The workflow includes:
 
 The project uses publicly available single-cell RNA-seq data from three glioblastoma samples.
 
-**Organism:** *Homo sapiens*
+**Organism:** *Homo sapiens*
 
-**Data type:** Single-cell RNA-seq
+**Data type:** Single-cell RNA-seq
 
 **Samples:**
 
@@ -52,13 +52,13 @@ The project uses publicly available single-cell RNA-seq data from three glioblas
 - SRR10353961
 - SRR10353962
 
-**Total number of cells:** 13,632
+**Total number of cells:** 13,632
 
-**Reference annotation:** GENCODE v47
+**Reference annotation:** GENCODE v47
 
-**Main analysis framework:** Seurat
+**Main analysis framework:** Seurat
 
-**CNV analysis:** inferCNV
+**CNV analysis:** inferCNV
 
 The three samples contain:
 
@@ -160,7 +160,7 @@ inferCNV result validation
 
 The workflow starts with raw single-cell RNA-seq FASTQ files.
 
-Initial quality assessment is performed using **FastQC**, followed by a summary of quality metrics using **MultiQC**.
+Initial quality assessment is performed using **FastQC**, followed by a summary of quality metrics using **MultiQC**.
 
 The quality-control stage evaluates sequencing quality and provides an overview of the input data before downstream processing.
 
@@ -168,7 +168,7 @@ The quality-control stage evaluates sequencing quality and provides an overview 
 
 ## 2. Alignment and Quantification
 
-Reads are processed using **STARsolo**.
+Reads are processed using **STARsolo**.
 
 STARsolo performs:
 
@@ -197,11 +197,11 @@ Quality-control plots are generated to evaluate the distribution of these metric
 
 ### QC Before Filtering
 
-![QC before filtering](figures/QC_before_filtering.png)
+
 
 ### QC After Filtering
 
-![QC after filtering](figures/QC_after_filtering.png)
+
 
 ---
 
@@ -229,11 +229,11 @@ PCA provides a representation of the major sources of variation in the dataset a
 
 ### Elbow Plot
 
-![Elbow Plot](figures/PCA_ElbowPlot.png)
+
 
 ### PCA by Sample
 
-![PCA](figures/PCA_PC1_PC2_by_sample.png)
+
 
 ---
 
@@ -247,15 +247,15 @@ The resulting clusters represent groups of cells with similar transcriptional pr
 
 ### UMAP Clusters
 
-![UMAP clusters](figures/UMAP_clusters.png)
+
 
 ### UMAP by Sample
 
-![UMAP by sample](figures/UMAP_by_sample.png)
+
 
 ### UMAP Split by Sample
 
-![UMAP split by sample](figures/UMAP_clusters_split_by_sample.png)
+
 
 ---
 
@@ -269,15 +269,15 @@ Marker validation is subsequently performed using canonical marker genes and cel
 
 ### Cluster Marker Heatmap
 
-![Cluster marker heatmap](figures/cluster_marker_heatmap.png)
+
 
 ### Canonical Cell-Type Markers
 
-![Canonical markers](figures/CanonicalMarkers_DotPlot.png)
+
 
 ### Marker Scores
 
-![Marker scores](figures/MarkerScores_by_cluster_heatmap.png)
+
 
 ---
 
@@ -306,7 +306,7 @@ The final annotation includes:
 
 ### Cell-Type Annotation
 
-![Cell type annotation](figures/UMAP_cell_type_annotation.png)
+
 
 ---
 
@@ -318,15 +318,15 @@ The analysis includes both absolute cell counts and relative cell proportions.
 
 ### Cell Composition
 
-![Cell composition](figures/Cell_Composition_Counts.png)
+
 
 ### Cell Composition by Percentage
 
-![Cell composition percentage](figures/Cell_Composition_Percent.png)
+
 
 ### Cell Composition Heatmap
 
-![Cell composition heatmap](figures/Cell_Composition_Heatmap.png)
+
 
 The analysis demonstrates differences in the representation of specific cellular populations between the three samples.
 
@@ -349,7 +349,7 @@ The selected reference populations were:
 - Microglia-Macrophage
 - Oligodendrocyte
 
-A balanced reference set of **300 cells** was selected.
+A balanced reference set of **300 cells** was selected.
 
 Reference cells by sample:
 
@@ -378,7 +378,7 @@ All validation steps passed.
 
 # inferCNV Analysis
 
-CNV inference was performed using **inferCNV 1.18.1**.
+CNV inference was performed using **inferCNV 1.18.1**.
 
 The analysis used:
 
@@ -418,9 +418,9 @@ The validation confirmed:
 
 The observation cells represented approximately 2% of the original cells from each sample in the inspected inferCNV result.
 
-The current CNV analysis is treated as an **exploratory CNV signal analysis**.
+The current CNV analysis is treated as an **exploratory CNV signal analysis**.
 
-Importantly, the current workflow does **not** classify cells as malignant or non-malignant solely on the basis of inferCNV signal.
+Importantly, the current workflow does **not** classify cells as malignant or non-malignant solely on the basis of inferCNV signal.
 
 ---
 
@@ -494,145 +494,145 @@ This project demonstrates practical experience with:
 
 # Repository Structure
 
-03_SingleCell-RNAseq-Glioblastoma-Seurat/
+03\_SingleCell-RNAseq-Glioblastoma-Seurat/
 
 ├── data/
 
-│   ├── counts/
+│ ├── counts/
 
-│   ├── metadata/
+│ ├── metadata/
 
-│   ├── raw_fastq/
+│ ├── raw\_fastq/
 
-│   └── reference/
+│ └── reference/
 
 ├── docs/
 
 ├── figures/
 
-│   ├── QC_before_filtering.png
+│ ├── QC\_before\_filtering.png
 
-│   ├── QC_after_filtering.png
+│ ├── QC\_after\_filtering.png
 
-│   ├── QC_nCount_vs_nFeature.png
+│ ├── QC\_nCount\_vs\_nFeature.png
 
-│   ├── PCA_ElbowPlot.png
+│ ├── PCA\_ElbowPlot.png
 
-│   ├── PCA_PC1_PC2_by_sample.png
+│ ├── PCA\_PC1\_PC2\_by\_sample.png
 
-│   ├── UMAP_clusters.png
+│ ├── UMAP\_clusters.png
 
-│   ├── UMAP_by_sample.png
+│ ├── UMAP\_by\_sample.png
 
-│   ├── UMAP_clusters_split_by_sample.png
+│ ├── UMAP\_clusters\_split\_by\_sample.png
 
-│   ├── cluster_marker_heatmap.png
+│ ├── cluster\_marker\_heatmap.png
 
-│   ├── CanonicalMarkers_DotPlot.png
+│ ├── CanonicalMarkers\_DotPlot.png
 
-│   ├── MarkerScores_by_cluster_heatmap.png
+│ ├── MarkerScores\_by\_cluster\_heatmap.png
 
-│   ├── UMAP_cell_type_annotation.png
+│ ├── UMAP\_cell\_type\_annotation.png
 
-│   ├── Cell_Composition_Counts.png
+│ ├── Cell\_Composition\_Counts.png
 
-│   ├── Cell_Composition_Percent.png
+│ ├── Cell\_Composition\_Percent.png
 
-│   └── Cell_Composition_Heatmap.png
+│ └── Cell\_Composition\_Heatmap.png
 
 ├── logs/
 
 ├── results/
 
-│   ├── fastqc/
+│ ├── fastqc/
 
-│   ├── multiqc/
+│ ├── multiqc/
 
-│   ├── starsolo/
+│ ├── starsolo/
 
-│   ├── seurat_qc/
+│ ├── seurat\_qc/
 
-│   ├── seurat_filter/
+│ ├── seurat\_filter/
 
-│   ├── seurat_normalization/
+│ ├── seurat\_normalization/
 
-│   ├── seurat_pca/
+│ ├── seurat\_pca/
 
-│   ├── seurat_clustering/
+│ ├── seurat\_clustering/
 
-│   ├── seurat_markers/
+│ ├── seurat\_markers/
 
-│   ├── seurat_marker_validation/
+│ ├── seurat\_marker\_validation/
 
-│   ├── seurat_annotation/
+│ ├── seurat\_annotation/
 
-│   ├── sample_composition/
+│ ├── sample\_composition/
 
-│   ├── cnv_annotation/
+│ ├── cnv\_annotation/
 
-│   ├── cnv_input/
+│ ├── cnv\_input/
 
-│   ├── cnv_reference/
+│ ├── cnv\_reference/
 
-│   └── infercnv/
+│ └── infercnv/
 
 ├── scripts/
 
-│   ├── 01_download_fastq.sh
+│ ├── 01\_download\_fastq.sh
 
-│   ├── 02_fastqc.sh
+│ ├── 02\_fastqc.sh
 
-│   ├── 03_multiqc.sh
+│ ├── 03\_multiqc.sh
 
-│   ├── 04_download_reference.sh
+│ ├── 04\_download\_reference.sh
 
-│   ├── 05_download_star_index.sh
+│ ├── 05\_download\_star\_index.sh
 
-│   ├── 06_download_whitelist.sh
+│ ├── 06\_download\_whitelist.sh
 
-│   ├── 07_starsolo.sh
+│ ├── 07\_starsolo.sh
 
-│   ├── 08_seurat_qc.R
+│ ├── 08\_seurat\_qc.R
 
-│   ├── 09_seurat_filter.R
+│ ├── 09\_seurat\_filter.R
 
-│   ├── 10_seurat_normalization.R
+│ ├── 10\_seurat\_normalization.R
 
-│   ├── 11_seurat_pca.R
+│ ├── 11\_seurat\_pca.R
 
-│   ├── 12_seurat_clustering_umap.R
+│ ├── 12\_seurat\_clustering\_umap.R
 
-│   ├── 13_seurat_markers.R
+│ ├── 13\_seurat\_markers.R
 
-│   ├── 14_seurat_marker_validation.R
+│ ├── 14\_seurat\_marker\_validation.R
 
-│   ├── 15_seurat_annotation.R
+│ ├── 15\_seurat\_annotation.R
 
-│   ├── 16_sample_composition.R
+│ ├── 16\_sample\_composition.R
 
-│   ├── 17_prepare_cnv_annotation.R
+│ ├── 17\_prepare\_cnv\_annotation.R
 
-│   ├── 18_prepare_cnv_input.R
+│ ├── 18\_prepare\_cnv\_input.R
 
-│   ├── 19_validate_cnv_input.R
+│ ├── 19\_validate\_cnv\_input.R
 
-│   ├── 20_prepare_cnv_counts.R
+│ ├── 20\_prepare\_cnv\_counts.R
 
-│   ├── 21_validate_cnv_reference.R
+│ ├── 21\_validate\_cnv\_reference.R
 
-│   ├── 22_select_cnv_reference.R
+│ ├── 22\_select\_cnv\_reference.R
 
-│   ├── 23_validate_selected_cnv_reference.R
+│ ├── 23\_validate\_selected\_cnv\_reference.R
 
-│   ├── 24_run_infercnv.R
+│ ├── 24\_run\_infercnv.R
 
-│   ├── 25_inspect_infercnv_results.R
+│ ├── 25\_inspect\_infercnv\_results.R
 
-│   └── 26_validate_infercnv_observations.R
+│ └── 26\_validate\_infercnv\_observations.R
 
 ├── .gitignore
 
-├── 03_SingleCell-RNAseq-Glioblastoma-Seurat.Rproj
+├── 03\_SingleCell-RNAseq-Glioblastoma-Seurat.Rproj
 
 └── README.md
 
@@ -644,7 +644,7 @@ The complete workflow is divided into independent scripts representing individua
 
 Each stage generates output files that can be used by subsequent steps.
 
-The project was developed and tested under **Ubuntu/WSL2**.
+The project was developed and tested under **Ubuntu/WSL2**.
 
 The workflow is designed to make the analysis reproducible and to allow individual stages to be inspected independently.
 
