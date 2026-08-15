@@ -172,10 +172,6 @@ Quality-control plots are generated to evaluate the distribution of these metric
 
 ![QC After Filtering](figures/QC_after_filtering.png)
 
-### Gene Counts and Cell Complexity
-
-![nCount RNA vs nFeature RNA](figures/QC_nCount_vs_nFeature.png)
-
 ---
 
 ## 4. Cell Filtering
